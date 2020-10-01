@@ -3,9 +3,23 @@
     <div class="skills">
       <h1>Skills</h1>
 
-      <ul>
-        <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
-      </ul>
+      <form @submit.prevent="addSkill">
+        <ValidationProvider v-slot="{ errors }">
+          <input
+            type="text"
+            placeholder="Enter a skill you have.."
+            v-model="skill"
+          />
+          <span>{{ errors[0] }}</span></ValidationProvider
+        >
+
+        <input type="checkbox" v-model="checked" />
+        <ul>
+          <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
+        </ul>
+      </form>
+
+      <p>Theses are skills that you possess</p>
     </div>
 
     <div class="helder">
@@ -46,6 +60,8 @@ export default {
     return {
       name: "Whatever",
       btnState: false,
+      checked: false,
+      skill: "",
       skills: [
         {
           skill: "VueJs",
@@ -71,15 +87,23 @@ export default {
     changeName() {
       this.btnState = true;
     },
+    addSkill() {
+      this.skills.push({ skill: this.skill });
+      this.skill = "";
+      console.log("This checkbox value is: " + this.checked);
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-li {
-  color: lightseagreen;
-  font-weight: 600;
+<style lang="scss" scoped>
+.skills {
+  li {
+    color: lightseagreen;
+    font-weight: 600;
+    text-align: left;
+  }
 }
 
 .alert {
