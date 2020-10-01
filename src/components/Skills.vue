@@ -3,25 +3,32 @@
     <div class="skills">
       <h1>Skills</h1>
 
-      <form @submit.prevent="addSkill">
-        <ValidationProvider
-          name="skill"
-          rules="minmax:3,20"
-          v-slot="{ errors }"
-        >
-          <input
-            type="text"
-            placeholder="Enter a skill you have.."
-            v-model="skill"
-          />
-          <span>{{ errors[0] }}</span>
-        </ValidationProvider>
+      <ValidationObserver ref="form">
+        <form @submit.prevent="addSkill">
+          <input type="checkbox" v-model="checked" />
+          <ValidationProvider
+            name="skill"
+            rules="minmax:3,20"
+            v-slot="{ errors }"
+          >
+            <input
+              type="text"
+              placeholder="Enter a skill you have.."
+              v-model="skill"
+            />
 
-        <input type="checkbox" v-model="checked" />
-        <ul>
-          <li v-for="(data, index) in skills" :key="index">{{ data.skill }}</li>
-        </ul>
-      </form>
+            <br />
+
+            <span class="alert" v-if="errors">{{ errors[0] }}</span>
+          </ValidationProvider>
+
+          <ul>
+            <li v-for="(data, index) in skills" :key="index">
+              {{ data.skill }}
+            </li>
+          </ul>
+        </form>
+      </ValidationObserver>
 
       <p>Theses are skills that you possess</p>
     </div>
@@ -48,6 +55,7 @@
 
     <div
       class="hilder"
+      v-show="false"
       v-bind:style="{
         backgroundColor: bgColor,
         width: bgWidth,
@@ -65,7 +73,7 @@ extend("minmax", {
     return value.length >= min && value.length <= max;
   },
   params: ["min", "max"],
-  message: "{_field_} must be more than {min} and less than {max}",
+  message: "the {_field_} must be more than {min} and less than {max}",
 });
 
 export default {
@@ -102,9 +110,13 @@ export default {
       this.btnState = true;
     },
     addSkill() {
-      this.skills.push({ skill: this.skill });
-      this.skill = "";
-      console.log("This checkbox value is: " + this.checked);
+      this.$refs.form.validate().then((success) => {
+        if (!success) {
+          return;
+        }
+        this.skills.push({ skill: this.skill });
+        this.skill = "";
+      });
     },
   },
 };
