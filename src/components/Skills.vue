@@ -4,14 +4,18 @@
       <h1>Skills</h1>
 
       <form @submit.prevent="addSkill">
-        <ValidationProvider v-slot="{ errors }">
+        <ValidationProvider
+          name="skill"
+          rules="minmax:3,20"
+          v-slot="{ errors }"
+        >
           <input
             type="text"
             placeholder="Enter a skill you have.."
             v-model="skill"
           />
-          <span>{{ errors[0] }}</span></ValidationProvider
-        >
+          <span>{{ errors[0] }}</span>
+        </ValidationProvider>
 
         <input type="checkbox" v-model="checked" />
         <ul>
@@ -54,6 +58,16 @@
 </template>
 
 <script>
+import { extend } from "vee-validate";
+
+extend("minmax", {
+  validate(value, { min, max }) {
+    return value.length >= min && value.length <= max;
+  },
+  params: ["min", "max"],
+  message: "{_field_} must be more than {min} and less than {max}",
+});
+
 export default {
   name: "Skills",
   data() {
