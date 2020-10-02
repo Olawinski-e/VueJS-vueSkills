@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>Hello {{ their_name }}, this is an about page</h1>
     <p>
       Pourquoi j'aime VueJs: <br />
       - D'abord, c'est léger, <br />
@@ -12,3 +12,14 @@
     </p>
   </div>
 </template>
+
+<script>
+export default {
+  name: "Skills",
+  data() {
+    return {
+      their_name: this.$route.params.name,
+    };
+  },
+};
+</script>

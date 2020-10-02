@@ -5,6 +5,9 @@ import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 import "./assets/scss/index.scss";
 
+import "@fortawesome/fontawesome-free/css/all.css";
+import "@fortawesome/fontawesome-free/js/all.js";
+
 Vue.component("ValidationProvider", ValidationProvider);
 Vue.component("ValidationObserver", ValidationObserver);
 Vue.config.productionTip = false;

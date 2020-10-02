@@ -25,6 +25,9 @@
           <ul>
             <li v-for="(data, index) in skills" :key="index">
               {{ data.skill }}
+              <div class="delete" @click="remove(index)">
+                <i class="ficon fa fa-minus-circle"></i>
+              </div>
             </li>
           </ul>
         </form>
@@ -119,6 +122,10 @@ export default {
         this.skill = "";
       });
     },
+    remove(id) {
+      console.log(id);
+      this.skills.splice(id, 1);
+    },
   },
 };
 </script>
@@ -141,5 +148,11 @@ export default {
 
 .another-class {
   border: solid 1px grey;
+}
+
+.delete {
+  cursor: pointer;
+  float: right;
+  color: tomato;
 }
 </style>
