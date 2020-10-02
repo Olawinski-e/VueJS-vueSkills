@@ -45,12 +45,12 @@
     <div class="holder">
       <ul>
         <li v-for="(data, index) in qualities" :key="index">
-          {{ index + 1 }}.{{ data.skill }}
+          {{ index + 1 }}.{{ data.quality }}
         </li>
       </ul>
 
-      <p v-if="skills.length >= 1">You have more than 1 skills.</p>
-      <p v-else>You have less than or equal to 1 skills.</p>
+      <p v-if="qualities.length >= 1">You have more than 1 quality.</p>
+      <p v-else>You have less than or equal to 1 quality.</p>
     </div>
 
     <div
@@ -92,12 +92,13 @@ export default {
           skill: "Frontend Developer",
         },
       ],
+      quality: "",
       qualities: [
         {
-          skill: "Nice",
+          quality: "Nice",
         },
         {
-          skill: "Friendly",
+          quality: "Friendly",
         },
       ],
       bgColor: "lightgreen",

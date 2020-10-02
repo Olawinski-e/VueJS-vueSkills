@@ -1,22 +1,36 @@
 <template>
   <div id="app">
-    <Skills />
+    <nav>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+    </nav>
+
+    <router-view />
   </div>
 </template>
 
 <script>
-import Skills from "./components/Skills.vue";
-
 export default {
   name: "App",
-  components: {
-    Skills,
-  },
 };
 </script>
 
-<style scoped>
-#app {
-  background-color: lightgoldenrodyellow;
+<style lang="scss" scoped>
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 3px;
+  background-color: rgb(228, 185, 76);
+  color: white;
+  margin-right: 15px;
+
+  &:hover {
+    background-color: goldenrod;
+  }
 }
 </style>
